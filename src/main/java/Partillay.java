@@ -17,7 +17,6 @@ public class Partillay {
 
         while (true) {
             String userInput = sc.nextLine();
-
             System.out.println(HORIZONTAL_LINE);
 
             if (userInput.equals("bye")) {
@@ -29,18 +28,17 @@ public class Partillay {
             if (userInput.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskIndex; i++) {
-                    System.out.println(i + 1 + "." + tasks[i].getTaskStatus());
+                    System.out.println(i + 1 + "." + tasks[i]);
                 }
                 System.out.println(HORIZONTAL_LINE);
                 continue;
-
             }
 
             if (userInput.startsWith("mark")) {
                 System.out.println("Nice! I've marked this task as done:");
                 int taskIndexToMark = Integer.parseInt(userInput.substring(5));
                 tasks[taskIndexToMark - 1].mark();
-                System.out.println(tasks[taskIndexToMark - 1].getTaskStatus());
+                System.out.println(tasks[taskIndexToMark - 1]);
                 System.out.println(HORIZONTAL_LINE);
                 continue;
             }
@@ -49,15 +47,47 @@ public class Partillay {
                 System.out.println("OK, I've marked this task as not done yet:");
                 int taskIndexToUnmark = Integer.parseInt(userInput.substring(7));
                 tasks[taskIndexToUnmark - 1].unmark();
-                System.out.println(tasks[taskIndexToUnmark - 1].getTaskStatus());
+                System.out.println(tasks[taskIndexToUnmark - 1]);
                 System.out.println(HORIZONTAL_LINE);
                 continue;
             }
 
-            System.out.println("added: " + userInput);
-            tasks[taskIndex] = new Task(userInput);
-            taskIndex++;
-            System.out.println(HORIZONTAL_LINE);
+            if (userInput.startsWith("todo")) {
+                String description = userInput.substring(5);
+                tasks[taskIndex] = new ToDo(description);
+                taskIndex++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskIndex - 1]);
+                System.out.println("Now you have " + taskIndex + " tasks in the list.");
+                System.out.println(HORIZONTAL_LINE);
+                continue;
+            }
+
+            if (userInput.startsWith("deadline")) {
+                String[] parts = userInput.substring(9).split(" /by ");
+                String description = parts[0].trim();
+                String by = parts[1].trim();
+                tasks[taskIndex] = new Deadline(description, by);
+                taskIndex++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskIndex - 1]);
+                System.out.println("Now you have " + taskIndex + " tasks in the list.");
+                System.out.println(HORIZONTAL_LINE);
+                continue;
+            }
+
+            if (userInput.startsWith("event")) {
+                String[] parts = userInput.substring(6).split(" /from | /to ");
+                String description = parts[0].trim();
+                String from = parts[1].trim();
+                String to = parts[2].trim();
+                tasks[taskIndex] = new Event(description, from, to);
+                taskIndex++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskIndex - 1]);
+                System.out.println("Now you have " + taskIndex + " tasks in the list.");
+                System.out.println(HORIZONTAL_LINE);
+            }
 
         }
 
@@ -80,7 +110,8 @@ class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String getTaskStatus() {
+    @Override
+    public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 
@@ -92,4 +123,46 @@ class Task {
         isDone = false;
     }
 
+}
+
+class Deadline extends Task {
+    protected String by;
+
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+}
+
+class Event extends Task {
+    protected String from;
+    protected String to;
+
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+}
+
+class ToDo extends Task {
+
+    public ToDo(String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
 }
