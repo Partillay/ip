@@ -5,7 +5,7 @@ public class Partillay {
 
     public static void main(String[] args) {
 
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskIndex = 0;
 
         System.out.println(HORIZONTAL_LINE);
@@ -28,15 +28,33 @@ public class Partillay {
 
             if (userInput.equals("list")) {
                 for (int i = 0; i < taskIndex; i++) {
-                    System.out.println(i + 1 + ". " + tasks[i]);
+                    System.out.println(i + 1 + "." + tasks[i].getTaskStatus());
                 }
                 System.out.println(HORIZONTAL_LINE);
                 continue;
 
             }
 
+            if (userInput.startsWith("mark")) {
+                System.out.println("Nice! I've marked this task as done:");
+                int taskIndexToMark = Integer.parseInt(userInput.substring(5));
+                tasks[taskIndexToMark - 1].mark();
+                System.out.println(tasks[taskIndexToMark - 1].getTaskStatus());
+                System.out.println(HORIZONTAL_LINE);
+                continue;
+            }
+
+            if (userInput.startsWith("unmark")) {
+                System.out.println("OK, I've marked this task as not done yet:");
+                int taskIndexToUnmark = Integer.parseInt(userInput.substring(7));
+                tasks[taskIndexToUnmark - 1].unmark();
+                System.out.println(tasks[taskIndexToUnmark - 1].getTaskStatus());
+                System.out.println(HORIZONTAL_LINE);
+                continue;
+            }
+
             System.out.println("added: " + userInput);
-            tasks[taskIndex] = userInput;
+            tasks[taskIndex] = new Task(userInput);
             taskIndex++;
             System.out.println(HORIZONTAL_LINE);
 
@@ -47,4 +65,32 @@ public class Partillay {
     }
 
 }
+
+class Task {
+    protected String description;
+    protected boolean isDone;
+
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public String getTaskStatus() {
+        return "[" + getStatusIcon() + "] " + description;
+    }
+
+    public void mark() {
+        isDone = true;
+    }
+
+    public void unmark() {
+        isDone = false;
+    }
+
+}
+
 
