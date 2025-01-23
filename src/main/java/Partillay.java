@@ -5,6 +5,9 @@ public class Partillay {
 
     public static void main(String[] args) {
 
+        String[] tasks = new String[100];
+        int taskIndex = 0;
+
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm Partillay, your ABSOLUTELY greatest bestie.");
         System.out.println("Anything I CAN HELP?");
@@ -15,15 +18,26 @@ public class Partillay {
         while (true) {
             String userInput = sc.nextLine();
 
+            System.out.println(HORIZONTAL_LINE);
+
             if (userInput.equals("bye")) {
-                System.out.println(HORIZONTAL_LINE);
                 System.out.println("Bye. See you later! Slay!");
                 System.out.println(HORIZONTAL_LINE);
                 break;
             }
 
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println("I got it! You said " + userInput);
+            if (userInput.equals("list")) {
+                for (int i = 0; i < taskIndex; i++) {
+                    System.out.println(i + 1 + ". " + tasks[i]);
+                }
+                System.out.println(HORIZONTAL_LINE);
+                continue;
+
+            }
+
+            System.out.println("added: " + userInput);
+            tasks[taskIndex] = userInput;
+            taskIndex++;
             System.out.println(HORIZONTAL_LINE);
 
         }
