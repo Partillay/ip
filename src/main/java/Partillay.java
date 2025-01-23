@@ -27,6 +27,7 @@ public class Partillay {
             }
 
             if (userInput.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskIndex; i++) {
                     System.out.println(i + 1 + "." + tasks[i].getTaskStatus());
                 }
@@ -92,5 +93,3 @@ class Task {
     }
 
 }
-
-
