@@ -16,79 +16,141 @@ public class Partillay {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            String userInput = sc.nextLine();
-            System.out.println(HORIZONTAL_LINE);
 
-            if (userInput.equals("bye")) {
-                System.out.println("Bye. See you later! Slay!");
+            try {
+                String userInput = sc.nextLine();
                 System.out.println(HORIZONTAL_LINE);
-                break;
-            }
 
-            if (userInput.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < taskIndex; i++) {
-                    System.out.println(i + 1 + "." + tasks[i]);
+                if (userInput.equals("bye")) {
+                    System.out.println("Bye. See you later! Slay!");
+                    System.out.println(HORIZONTAL_LINE);
+                    break;
                 }
-                System.out.println(HORIZONTAL_LINE);
-                continue;
-            }
 
-            if (userInput.startsWith("mark")) {
-                System.out.println("Nice! I've marked this task as done:");
-                int taskIndexToMark = Integer.parseInt(userInput.substring(5));
-                tasks[taskIndexToMark - 1].mark();
-                System.out.println(tasks[taskIndexToMark - 1]);
-                System.out.println(HORIZONTAL_LINE);
-                continue;
-            }
+                if (userInput.equals("list")) {
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < taskIndex; i++) {
+                        System.out.println(i + 1 + "." + tasks[i]);
+                    }
+                    System.out.println(HORIZONTAL_LINE);
+                    continue;
+                }
 
-            if (userInput.startsWith("unmark")) {
-                System.out.println("OK, I've marked this task as not done yet:");
-                int taskIndexToUnmark = Integer.parseInt(userInput.substring(7));
-                tasks[taskIndexToUnmark - 1].unmark();
-                System.out.println(tasks[taskIndexToUnmark - 1]);
-                System.out.println(HORIZONTAL_LINE);
-                continue;
-            }
+                // Handle an error here (index out of bounds)
+                if (userInput.startsWith("mark")) {
+                    int taskIndexToMark = Integer.parseInt(userInput.substring(5));
+                    if (taskIndexToMark > taskIndex) {
+                        throw new PartillayException("No such index in your task list!");
+                    }
+                    System.out.println("Nice! I've marked this task as done:");
+                    tasks[taskIndexToMark - 1].mark();
+                    System.out.println(tasks[taskIndexToMark - 1]);
+                    System.out.println(HORIZONTAL_LINE);
+                    continue;
+                }
 
-            if (userInput.startsWith("todo")) {
-                String description = userInput.substring(5);
-                tasks[taskIndex] = new ToDo(description);
-                taskIndex++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskIndex - 1]);
-                System.out.println("Now you have " + taskIndex + " tasks in the list.");
-                System.out.println(HORIZONTAL_LINE);
-                continue;
-            }
+                // Handle an error here (index out of bounds)
+                if (userInput.startsWith("unmark")) {
+                    int taskIndexToUnmark = Integer.parseInt(userInput.substring(7));
+                    if (taskIndexToUnmark > taskIndex) {
+                        throw new PartillayException("No such index in your task list!");
+                    }
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    tasks[taskIndexToUnmark - 1].unmark();
+                    System.out.println(tasks[taskIndexToUnmark - 1]);
+                    System.out.println(HORIZONTAL_LINE);
+                    continue;
+                }
 
-            if (userInput.startsWith("deadline")) {
-                String[] parts = userInput.substring(9).split(" /by ");
-                String description = parts[0].trim();
-                String by = parts[1].trim();
-                tasks[taskIndex] = new Deadline(description, by);
-                taskIndex++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskIndex - 1]);
-                System.out.println("Now you have " + taskIndex + " tasks in the list.");
-                System.out.println(HORIZONTAL_LINE);
-                continue;
-            }
+                if (userInput.startsWith("todo")) {
+                    String description = userInput.substring(4);
+                    if (!description.startsWith(" ") && !description.isEmpty()) {
+                        throw new PartillayException("That's not a valid command, bestie!");
+                    }
+                    description = description.trim();
+                    if (description.isEmpty()) {
+                        throw new PartillayException("Bestie, your task cannot be empty!");
+                    }
+                    tasks[taskIndex] = new ToDo(description);
+                    taskIndex++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(tasks[taskIndex - 1]);
+                    System.out.println("Now you have " + taskIndex + " tasks in the list.");
+                    System.out.println(HORIZONTAL_LINE);
+                    continue;
+                }
 
-            if (userInput.startsWith("event")) {
-                String[] parts = userInput.substring(6).split(" /from | /to ");
-                String description = parts[0].trim();
-                String from = parts[1].trim();
-                String to = parts[2].trim();
-                tasks[taskIndex] = new Event(description, from, to);
-                taskIndex++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskIndex - 1]);
-                System.out.println("Now you have " + taskIndex + " tasks in the list.");
+                if (userInput.startsWith("deadline")) {
+                    String input = userInput.substring(8);
+                    if (!input.startsWith(" ") && !input.isEmpty()) {
+                        throw new PartillayException("That's not a valid command, bestie!");
+                    }
+                    input = input.trim();
+                    if (input.isEmpty()) {
+                        throw new PartillayException("Bestie, your task cannot be empty!");
+                    }
+                    String[] parts = userInput.substring(9).split(" /by ");
+                    if (parts.length != 2) {
+                        throw new PartillayException("That's not a valid command, bestie!");
+                    }
+                    String description = parts[0].trim();
+                    String by = parts[1].trim();
+                    if (description.isEmpty()) {
+                        throw new PartillayException("Bestie, your task cannot be empty!");
+                    }
+                    if (by.isEmpty()) {
+                        throw new PartillayException("Bestie, I need your deadline!");
+                    }
+                    tasks[taskIndex] = new Deadline(description, by);
+                    taskIndex++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(tasks[taskIndex - 1]);
+                    System.out.println("Now you have " + taskIndex + " tasks in the list.");
+                    System.out.println(HORIZONTAL_LINE);
+                    continue;
+                }
+
+                if (userInput.startsWith("event")) {
+                    String input = userInput.substring(5);
+                    if (!input.startsWith(" ") && !input.isEmpty()) {
+                        throw new PartillayException("That's not a valid command, bestie!");
+                    }
+                    input = input.trim();
+                    if (input.isEmpty()) {
+                        throw new PartillayException("Bestie, your task cannot be empty!");
+                    }
+                    String[] parts = userInput.substring(6).split(" /from | /to ");
+                    if (parts.length != 3) {
+                        throw new PartillayException("That's not a valid command, bestie!");
+                    }
+                    String description = parts[0].trim();
+                    String from = parts[1].trim();
+                    String to = parts[2].trim();
+                    if (description.isEmpty()) {
+                        throw new PartillayException("Bestie, your task cannot be empty!");
+                    }
+                    if (from.isEmpty()) {
+                        throw new PartillayException("Bestie, I need your starting time!");
+                    }
+                    if (to.isEmpty()) {
+                        throw new PartillayException("Bestie, I need your ending time!");
+                    }
+                    tasks[taskIndex] = new Event(description, from, to);
+                    taskIndex++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(tasks[taskIndex - 1]);
+                    System.out.println("Now you have " + taskIndex + " tasks in the list.");
+                    System.out.println(HORIZONTAL_LINE);
+                }
+
+                else {
+                    throw new PartillayException("That's not a valid command, bestie!");
+                }
+
+            } catch (PartillayException e) {
+                System.out.println(e.getMessage());
                 System.out.println(HORIZONTAL_LINE);
             }
-
         }
 
         sc.close();
@@ -164,5 +226,11 @@ class ToDo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+}
+
+class PartillayException extends RuntimeException {
+    public PartillayException(String message) {
+        super(message);
     }
 }
