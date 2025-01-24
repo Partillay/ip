@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Partillay {
@@ -5,8 +6,7 @@ public class Partillay {
 
     public static void main(String[] args) {
 
-        Task[] tasks = new Task[100];
-        int taskIndex = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm Partillay, your ABSOLUTELY greatest bestie.");
@@ -29,8 +29,8 @@ public class Partillay {
 
                 if (userInput.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskIndex; i++) {
-                        System.out.println(i + 1 + "." + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println(i + 1 + "." + tasks.get(i));
                     }
                     System.out.println(HORIZONTAL_LINE);
                     continue;
@@ -39,12 +39,12 @@ public class Partillay {
                 // Handle an error here (index out of bounds)
                 if (userInput.startsWith("mark")) {
                     int taskIndexToMark = Integer.parseInt(userInput.substring(5));
-                    if (taskIndexToMark > taskIndex) {
+                    if (taskIndexToMark > tasks.size()) {
                         throw new PartillayException("No such index in your task list!");
                     }
                     System.out.println("Nice! I've marked this task as done:");
-                    tasks[taskIndexToMark - 1].mark();
-                    System.out.println(tasks[taskIndexToMark - 1]);
+                    tasks.get(taskIndexToMark - 1).mark();
+                    System.out.println(tasks.get(taskIndexToMark - 1));
                     System.out.println(HORIZONTAL_LINE);
                     continue;
                 }
@@ -52,12 +52,25 @@ public class Partillay {
                 // Handle an error here (index out of bounds)
                 if (userInput.startsWith("unmark")) {
                     int taskIndexToUnmark = Integer.parseInt(userInput.substring(7));
-                    if (taskIndexToUnmark > taskIndex) {
+                    if (taskIndexToUnmark > tasks.size()) {
                         throw new PartillayException("No such index in your task list!");
                     }
                     System.out.println("OK, I've marked this task as not done yet:");
-                    tasks[taskIndexToUnmark - 1].unmark();
-                    System.out.println(tasks[taskIndexToUnmark - 1]);
+                    tasks.get(taskIndexToUnmark - 1).unmark();
+                    System.out.println(tasks.get(taskIndexToUnmark - 1));
+                    System.out.println(HORIZONTAL_LINE);
+                    continue;
+                }
+
+                if (userInput.startsWith("delete")) {
+                    int taskIndexToDelete = Integer.parseInt(userInput.substring(7));
+                    if (taskIndexToDelete > tasks.size()) {
+                        throw new PartillayException("No such index in your task list!");
+                    }
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(tasks.get(taskIndexToDelete - 1));
+                    tasks.remove(taskIndexToDelete - 1);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(HORIZONTAL_LINE);
                     continue;
                 }
@@ -71,11 +84,10 @@ public class Partillay {
                     if (description.isEmpty()) {
                         throw new PartillayException("Bestie, your task cannot be empty!");
                     }
-                    tasks[taskIndex] = new ToDo(description);
-                    taskIndex++;
+                    tasks.add(new ToDo(description));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(tasks[taskIndex - 1]);
-                    System.out.println("Now you have " + taskIndex + " tasks in the list.");
+                    System.out.println(tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(HORIZONTAL_LINE);
                     continue;
                 }
@@ -101,11 +113,10 @@ public class Partillay {
                     if (by.isEmpty()) {
                         throw new PartillayException("Bestie, I need your deadline!");
                     }
-                    tasks[taskIndex] = new Deadline(description, by);
-                    taskIndex++;
+                    tasks.add(new Deadline(description, by));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(tasks[taskIndex - 1]);
-                    System.out.println("Now you have " + taskIndex + " tasks in the list.");
+                    System.out.println(tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(HORIZONTAL_LINE);
                     continue;
                 }
@@ -135,11 +146,10 @@ public class Partillay {
                     if (to.isEmpty()) {
                         throw new PartillayException("Bestie, I need your ending time!");
                     }
-                    tasks[taskIndex] = new Event(description, from, to);
-                    taskIndex++;
+                    tasks.add(new Event(description, from, to));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(tasks[taskIndex - 1]);
-                    System.out.println("Now you have " + taskIndex + " tasks in the list.");
+                    System.out.println(tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(HORIZONTAL_LINE);
                 }
 
