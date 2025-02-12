@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import command.Command;
 import task.*;
 
 import command.*;
@@ -10,12 +9,15 @@ import ui.Ui;
 
 import exception.*;
 
+import storage.Storage;
+
 public class Partillay {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
 
     public static void main(String[] args) {
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage();
+
+        ArrayList<Task> tasks = storage.getTasks();
         Ui ui = new Ui();
 
         ui.showWelcomeMessage();
@@ -23,6 +25,8 @@ public class Partillay {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
+
+            storage.writeTasksToFile(tasks);
 
             try {
                 String userInput = scanner.nextLine();
@@ -39,7 +43,12 @@ public class Partillay {
 
                 // Handle an error here (index out of bounds)
                 if (userInput.startsWith("mark")) {
-                    int taskIndexToMark = Integer.parseInt(userInput.substring(5));
+                    int taskIndexToMark;
+                    try {
+                        taskIndexToMark = Integer.parseInt(userInput.substring(5));
+                    } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+                        throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+                    }
                     if (taskIndexToMark > tasks.size()) {
                         throw new PartillayIndexException("No such index in your task list!");
                     }
@@ -52,7 +61,12 @@ public class Partillay {
 
                 // Handle an error here (index out of bounds)
                 if (userInput.startsWith("unmark")) {
-                    int taskIndexToUnmark = Integer.parseInt(userInput.substring(7));
+                    int taskIndexToUnmark;
+                    try {
+                        taskIndexToUnmark = Integer.parseInt(userInput.substring(5));
+                    } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+                        throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+                    }
                     if (taskIndexToUnmark > tasks.size()) {
                         throw new PartillayIndexException("No such index in your task list!");
                     }
@@ -64,7 +78,12 @@ public class Partillay {
                 }
 
                 if (userInput.startsWith("delete")) {
-                    int taskIndexToDelete = Integer.parseInt(userInput.substring(7));
+                    int taskIndexToDelete;
+                    try {
+                        taskIndexToDelete = Integer.parseInt(userInput.substring(7));
+                    } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+                        throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+                    }
                     if (taskIndexToDelete > tasks.size()) {
                         throw new PartillayIndexException("No such index in your task list!");
                     }
