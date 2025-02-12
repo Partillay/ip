@@ -1,9 +1,15 @@
 package command;
 
-import java.util.ArrayList;
-import task.Task;
+import task.TaskList;
+
 import ui.Ui;
 
 public abstract class Command {
-    public abstract void execute(ArrayList<Task> tasks, Ui ui);
+    protected boolean isExit = false;
+
+    public abstract void execute(TaskList tasks, Ui ui);
+
+    public boolean getExitPermission() {
+        return isExit;
+    }
 }

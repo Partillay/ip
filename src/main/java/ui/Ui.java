@@ -1,11 +1,18 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import task.Task;
+import task.TaskList;
 
 public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private final Scanner scanner = new Scanner(System.in);
+
+    public String readCommand() {
+        return scanner.nextLine();
+    }
 
     public void showWelcomeMessage() {
         showLine();
@@ -22,7 +29,7 @@ public class Ui {
 
     public void showError(String message) {
         showLine();
-        System.out.println("Error: " + message);
+        System.out.println(message);
         showLine();
     }
 
@@ -30,11 +37,12 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public void showTaskList(ArrayList<Task> tasks) {
+    public void showTaskList(TaskList tasks) {
         showLine();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+        ArrayList<Task> tasksToShow = tasks.getTasks();
+        for (int i = 0; i < tasksToShow.size(); i++) {
+            showMessage((i + 1) + ". " + tasksToShow.get(i));
         }
         showLine();
     }

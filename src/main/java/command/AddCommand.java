@@ -1,7 +1,6 @@
 package command;
 
-import java.util.ArrayList;
-
+import task.TaskList;
 import task.Task;
 
 import ui.Ui;
@@ -14,9 +13,9 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, Ui ui) {
+    public void execute(TaskList tasks, Ui ui) {
         ui.showLine();
-        tasks.add(task);
+        tasks.addTask(task);
         ui.showMessage("Got it. I've added this task:");
         ui.showMessage(task.toString());
         ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
