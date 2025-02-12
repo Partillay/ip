@@ -1,4 +1,4 @@
-package task;
+package partillay.task;
 
 public class ToDo extends Task {
 

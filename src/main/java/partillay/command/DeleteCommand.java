@@ -1,13 +1,11 @@
-package command;
+package partillay.command;
 
-import java.util.ArrayList;
+import partillay.exception.PartillayIndexException;
 
-import exception.PartillayIndexException;
+import partillay.task.Task;
+import partillay.task.TaskList;
 
-import task.Task;
-import task.TaskList;
-
-import ui.Ui;
+import partillay.ui.Ui;
 
 public class DeleteCommand extends Command {
     private final int taskIndexToDelete;

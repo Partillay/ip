@@ -1,8 +1,8 @@
-package command;
+package partillay.command;
 
-import task.TaskList;
+import partillay.task.TaskList;
 
-import ui.Ui;
+import partillay.ui.Ui;
 
 public abstract class Command {
     protected boolean isExit = false;

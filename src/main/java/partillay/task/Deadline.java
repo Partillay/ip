@@ -1,6 +1,6 @@
-package task;
+package partillay.task;
 
-import parser.DateTimeFormatParser;
+import partillay.parser.DateTimeFormatParser;
 
 import java.time.LocalDateTime;
 

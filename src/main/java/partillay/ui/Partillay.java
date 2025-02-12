@@ -1,14 +1,14 @@
-import command.*;
+package partillay.ui;
 
-import parser.Parser;
+import partillay.command.*;
 
-import storage.Storage;
+import partillay.parser.Parser;
 
-import task.*;
+import partillay.storage.Storage;
 
-import ui.Ui;
+import partillay.task.*;
 
-import exception.*;
+import partillay.exception.*;
 
 public class Partillay {
     private final Storage storage;

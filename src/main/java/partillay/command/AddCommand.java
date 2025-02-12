@@ -1,9 +1,9 @@
-package command;
+package partillay.command;
 
-import task.TaskList;
-import task.Task;
+import partillay.task.TaskList;
+import partillay.task.Task;
 
-import ui.Ui;
+import partillay.ui.Ui;
 
 public class AddCommand extends Command {
     private final Task task;

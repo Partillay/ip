@@ -1,10 +1,10 @@
-package ui;
+package partillay.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import task.Task;
-import task.TaskList;
+import partillay.task.Task;
+import partillay.task.TaskList;
 
 public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
