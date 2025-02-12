@@ -28,7 +28,6 @@ public class Storage {
     public static void checkAndPrepareFile() {
         Path dirPath = Paths.get(DIR_PATH);
         Path filePath = Paths.get(FILE_PATH);
-
         if (!Files.exists(dirPath)) {
             try {
                 Files.createDirectories(dirPath);
@@ -37,7 +36,6 @@ public class Storage {
                 System.err.println("Failed to create directory: " + e.getMessage());
             }
         }
-
         if (!Files.exists(filePath)) {
             try {
                 Files.createFile(filePath);
@@ -48,7 +46,7 @@ public class Storage {
         }
     }
 
-    public void writeTasksToFile(ArrayList<Task> tasks) {
+    public void writeTasksToFile(TaskList tasks) {
         Path path = Paths.get(FILE_PATH);
         try {
             Files.deleteIfExists(path);
@@ -56,9 +54,10 @@ public class Storage {
         } catch (IOException e) {
             System.err.println("Error deleting or creating the file: " + e.getMessage());
         }
+        ArrayList<Task> tasksToWrite = tasks.getTasks();
         try (BufferedWriter writer = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
-            for (int i = 0; i < tasks.size(); i++) {
-                writer.write(tasks.get(i).getTxtFormat());
+            for (int i = 0; i < tasksToWrite.size(); i++) {
+                writer.write(tasksToWrite.get(i).getTxtFormat());
                 if (i < tasks.size() - 1) {
                     writer.newLine();
                 }
@@ -106,6 +105,4 @@ public class Storage {
         }
 
     }
-
-
 }
