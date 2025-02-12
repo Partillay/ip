@@ -16,6 +16,10 @@ public class ToDo extends Task {
     }
 
     public String getTxtFormat() {
-        return "T" + " | " + getStatusBinaryNumber() + " | " + description;
+        return "T"
+                + " | "
+                + getStatusBinaryNumber()
+                + " | "
+                + description;
     }
 }
