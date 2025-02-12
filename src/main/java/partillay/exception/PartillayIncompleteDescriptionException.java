@@ -1,4 +1,4 @@
-package exception;
+package partillay.exception;
 
 public class PartillayIncompleteDescriptionException extends PartillayException {
     public PartillayIncompleteDescriptionException(String message) {

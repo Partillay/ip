@@ -1,6 +1,6 @@
-package storage;
+package partillay.storage;
 
-import task.*;
+import partillay.task.*;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

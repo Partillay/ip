@@ -1,10 +1,10 @@
-package command;
+package partillay.command;
 
-import exception.PartillayIndexException;
+import partillay.exception.PartillayIndexException;
 
-import task.TaskList;
+import partillay.task.TaskList;
 
-import ui.Ui;
+import partillay.ui.Ui;
 
 public class UnmarkCommand extends Command {
     private final int taskIndexToUnmark;

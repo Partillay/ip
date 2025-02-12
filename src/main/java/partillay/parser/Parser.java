@@ -1,10 +1,10 @@
-package parser;
+package partillay.parser;
 
-import command.*;
+import partillay.command.*;
 
-import exception.*;
+import partillay.exception.*;
 
-import task.*;
+import partillay.task.*;
 
 public class Parser {
     public static Command parse(String userInput) throws PartillayException {
@@ -31,7 +31,7 @@ public class Parser {
         } else if (userInput.startsWith("delete")) {
             int taskIndexToDelete;
             try {
-                taskIndexToDelete = Integer.parseInt(userInput.substring(8));
+                taskIndexToDelete = Integer.parseInt(userInput.substring(7));
             } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
                 throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
             }

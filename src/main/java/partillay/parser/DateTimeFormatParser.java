@@ -1,6 +1,6 @@
-package parser;
+package partillay.parser;
 
-import exception.PartillayException;
+import partillay.exception.PartillayException;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;

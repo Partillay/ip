@@ -1,4 +1,4 @@
-package exception;
+package partillay.exception;
 
 public class PartillayInvalidCommandException extends PartillayException {
     public PartillayInvalidCommandException(String message) {

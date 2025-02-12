@@ -1,4 +1,4 @@
-package task;
+package partillay.task;
 
 import java.util.ArrayList;
 
