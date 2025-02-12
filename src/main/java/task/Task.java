@@ -9,8 +9,17 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Task(String description, String statusBinaryNumber) {
+        this.description = description;
+        this.isDone = statusBinaryNumber.equals("1");
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public String getStatusBinaryNumber() {
+        return (isDone ? "1" : "0");
     }
 
     @Override
@@ -26,4 +35,5 @@ public abstract class Task {
         isDone = false;
     }
 
+    public abstract String getTxtFormat();
 }
