@@ -22,4 +22,15 @@ public class ToDo extends Task {
                 + " | "
                 + description;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other instanceof ToDo) {
+            return description.equals(((ToDo) other).description);
+        }
+        return false;
+    }
 }

@@ -16,7 +16,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui) throws PartillayIndexException {
         try {
-            if (taskIndexToMark > tasks.size()) {
+            if (taskIndexToMark > tasks.size() || taskIndexToMark < 0) {
                 throw new PartillayIndexException("No such index in your task list, bestie!");
             }
             ui.showLine();
@@ -27,5 +27,16 @@ public class MarkCommand extends Command {
         } catch (PartillayIndexException e) {
             ui.showError(e.getMessage());
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other instanceof MarkCommand) {
+            return taskIndexToMark == ((MarkCommand) other).taskIndexToMark;
+        }
+        return false;
     }
 }
