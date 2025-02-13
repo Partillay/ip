@@ -13,4 +13,12 @@ public class ByeCommand extends Command {
     public void execute(TaskList tasks, Ui ui) {
         ui.showGoodbyeMessage();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        return other instanceof ByeCommand;
+    }
 }

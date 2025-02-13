@@ -21,4 +21,15 @@ public class AddCommand extends Command {
         ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
         ui.showLine();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other instanceof AddCommand otherCommand) {
+            return task.equals(otherCommand.task);
+        }
+        return false;
+    }
 }

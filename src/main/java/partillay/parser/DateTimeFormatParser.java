@@ -1,5 +1,6 @@
 package partillay.parser;
 
+import partillay.exception.PartillayDateFormatException;
 import partillay.exception.PartillayException;
 
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ public class DateTimeFormatParser {
                 // Ignore and try next format
             }
         }
-        throw new PartillayException("Invalid date format");
+        throw new PartillayDateFormatException("Invalid date format, bestie!");
     }
 
     public static String getFormattedDateString(LocalDateTime dateTimeString) {
