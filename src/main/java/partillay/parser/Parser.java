@@ -12,6 +12,16 @@ public class Parser {
             return new ByeCommand();
         } else if (userInput.trim().equals("list")) {
             return new ShowTaskListCommand();
+        } else if (userInput.startsWith("find")) {
+            String toBeSearched = userInput.substring(4);
+            if (!toBeSearched.startsWith(" ") && !toBeSearched.isEmpty()) {
+                throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+            }
+            toBeSearched = toBeSearched.trim();
+            if (toBeSearched.isEmpty()) {
+                throw new PartillayIncompleteDescriptionException("Bestie, your keyword cannot be empty!");
+            }
+            return new FindCommand(toBeSearched);
         } else if (userInput.startsWith("mark")) {
             int taskIndexToMark;
             try {

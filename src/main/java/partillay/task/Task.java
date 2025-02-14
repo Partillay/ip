@@ -14,6 +14,10 @@ public abstract class Task {
         this.isDone = statusBinaryNumber.equals("1");
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
