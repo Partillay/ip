@@ -12,13 +12,13 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class DateTimeFormatParserTest {
 
     @Test
-    public void testParseDateTimeOne() {
+    public void test_ParseDateTime_One() {
         assertEquals(LocalDateTime.of(2025,2,14, 23, 59),
                 DateTimeFormatParser.parseDateTime("14/02/2025"));
     }
 
     @Test
-    public void testParseDateTimeTwo() {
+    public void test_ParseDateTime_Two() {
         try {
             assertEquals(LocalDateTime.of(2025, 2, 14, 0, 0),
                     DateTimeFormatParser.parseDateTime("02-14-2025"));
@@ -29,13 +29,13 @@ public class DateTimeFormatParserTest {
     }
 
     @Test
-    public void testParseDateTimeThree() {
+    public void test_ParseDateTime_Three() {
         assertEquals(LocalDateTime.of(2025,2,14, 18, 0),
                 DateTimeFormatParser.parseDateTime("14/02/2025 1800"));
     }
 
     @Test
-    public void testParseDateTimeFour() {
+    public void test_ParseDateTime_Four() {
         try {
             assertEquals(LocalDateTime.of(2025, 2, 14, 0, 0),
                     DateTimeFormatParser.parseDateTime("02-14-2025"));

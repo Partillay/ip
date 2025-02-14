@@ -10,7 +10,8 @@ import partillay.task.TaskList;
  * Represents the user interface (UI) that handles input and output interactions with the user.
  */
 public class Ui {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String HORIZONTAL_LINE
+            = "____________________________________________________________";
     private final Scanner scanner = new Scanner(System.in);
 
     /**

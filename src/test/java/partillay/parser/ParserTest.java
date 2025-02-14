@@ -17,14 +17,14 @@ import partillay.task.ToDo;
 public class ParserTest {
 
     @Test
-    public void testParsingBye() {
+    public void test_Parsing_Bye() {
         assertEquals(new ByeCommand(), Parser.parse("bye"));
         assertEquals(new ByeCommand(), Parser.parse("bye "));
         assertEquals(new ByeCommand(), Parser.parse("bye  "));
     }
 
     @Test
-    public void testParsingMarkCommand() {
+    public void test_Parsing_MarkCommand() {
         try {
             assertEquals(new MarkCommand(1), Parser.parse("mark 1"));
             assertEquals(new MarkCommand(2), Parser.parse("mark dsd"));
@@ -35,7 +35,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParsingTodoCommandOne() {
+    public void test_Parsing_TodoCommandOne() {
         try {
             assertEquals(new AddCommand(new ToDo("eat breakfast")),
                     Parser.parse("todo eat breakfast"));
@@ -48,7 +48,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParsingTodoCommandTwo() {
+    public void test_Parsing_TodoCommandTwo() {
         try {
             assertEquals(new AddCommand(new ToDo("eat breakfast")),
                     Parser.parse("todo eat breakfast"));
@@ -61,7 +61,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParsingTodoCommandThree() {
+    public void test_Parsing_TodoCommandThree() {
         try {
             assertEquals(new AddCommand(new ToDo("eat breakfast")),
                     Parser.parse("todo eat breakfast"));

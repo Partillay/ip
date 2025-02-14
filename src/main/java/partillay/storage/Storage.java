@@ -75,7 +75,8 @@ public class Storage {
             System.err.println("Error deleting or creating the file: " + e.getMessage());
         }
         ArrayList<Task> tasksToWrite = tasks.getTasks();
-        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
+        try (BufferedWriter writer = Files.newBufferedWriter(
+                path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
             for (int i = 0; i < tasksToWrite.size(); i++) {
                 writer.write(tasksToWrite.get(i).getTxtFormat());
                 if (i < tasks.size() - 1) {

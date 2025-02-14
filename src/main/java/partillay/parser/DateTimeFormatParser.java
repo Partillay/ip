@@ -81,8 +81,8 @@ public class DateTimeFormatParser {
          */
         public LocalDateTime parse(String dateStr) {
             return this.name().contains("HH_MM")
-                    ? LocalDateTime.parse(dateStr, formatter)  // Parse as LocalDateTime if time exists
-                    : LocalDate.parse(dateStr, formatter).atTime(23, 59); // Otherwise, parse as LocalDate and convert
+                    ? LocalDateTime.parse(dateStr, formatter)
+                    : LocalDate.parse(dateStr, formatter).atTime(23, 59);
         }
     }
 }
