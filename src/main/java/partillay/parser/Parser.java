@@ -6,7 +6,23 @@ import partillay.exception.*;
 
 import partillay.task.*;
 
+/**
+ * Represents a parser that processes user inputs to return {@code Command} to be executed.
+ */
 public class Parser {
+
+    /**
+     * Parses the user's input string and returns the corresponding {@code Command}.
+     * <p>
+     * Supports commands such as {@code bye}, {@code list}, {@code mark}, {@code unmark},
+     * {@code delete}, {@code todo}, {@code deadline}, and {@code event}. If the input
+     * does not match any valid command format, an exception is thrown.
+     * </p>
+     *
+     * @param userInput the raw input string from the user
+     * @return a {@code Command} object representing the parsed command
+     * @throws PartillayException if the input does not match any valid command format
+     */
     public static Command parse(String userInput) throws PartillayException {
         if (userInput.trim().equals("bye")) {
             return new ByeCommand();

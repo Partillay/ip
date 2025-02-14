@@ -10,17 +10,28 @@ import partillay.task.*;
 
 import partillay.exception.*;
 
+/**
+ * Main class of the whole programme to run the chatbot.
+ */
 public class Partillay {
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructs a new Partillay object to run the programme,
+     * possess less significance.
+     */
     public Partillay() {
         ui = new Ui();
         storage = new Storage();
         tasks = new TaskList(storage.getTasks());
     }
 
+    /**
+     * Runs the chatbot, and calls relevant objects like ui
+     * to give output
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;
@@ -39,6 +50,11 @@ public class Partillay {
 
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments that are ignored upon execution
+     */
     public static void main(String[] args) {
         new Partillay().run();
     }

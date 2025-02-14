@@ -10,28 +10,43 @@ import java.nio.file.*;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a storage system for saving and retrieving tasks from a text file.
+ */
 public class Storage {
     private static final String FILE_PATH = System.getProperty("user.dir") + "/src/data/Partillay.txt";
     private static final String DIR_PATH = System.getProperty("user.dir") + "/src/data/";
     private static ArrayList<Task> tasks;
 
+    /**
+     * Initializes the Storage system by ensuring the file exists and loading existing tasks.
+     */
     public Storage() {
         checkAndPrepareFile();
         tasks = new ArrayList<>();
         loadTasksFromFile();
     }
 
+    /**
+     * Returns the list of tasks currently stored.
+     *
+     * @return an ArrayList of Task objects.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Ensures the storage directory and file exist before accessing them.
+     * If they do not exist, they are created.
+     */
     public static void checkAndPrepareFile() {
         Path dirPath = Paths.get(DIR_PATH);
         Path filePath = Paths.get(FILE_PATH);
         if (!Files.exists(dirPath)) {
             try {
                 Files.createDirectories(dirPath);
-                System.out.println("Directory created: " + dirPath.toString());
+                System.out.println("Directory created: " + dirPath);
             } catch (IOException e) {
                 System.err.println("Failed to create directory: " + e.getMessage());
             }
@@ -39,13 +54,18 @@ public class Storage {
         if (!Files.exists(filePath)) {
             try {
                 Files.createFile(filePath);
-                System.out.println("File created: " + filePath.toString());
+                System.out.println("File created: " + filePath);
             } catch (IOException e) {
                 System.err.println("Failed to create file: " + e.getMessage());
             }
         }
     }
 
+    /**
+     * Saves the current list of tasks to the storage file, overwriting any previous data.
+     *
+     * @param tasks The TaskList containing tasks to be saved.
+     */
     public void writeTasksToFile(TaskList tasks) {
         Path path = Paths.get(FILE_PATH);
         try {
@@ -67,6 +87,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file, parsing each line into a corresponding Task object.
+     * Tasks are stored in the format:
+     * - "D | status | description | by" (Deadline)
+     * - "E | status | description | from | to" (Event)
+     * - "T | status | description" (ToDo)
+     */
     public void loadTasksFromFile() {
         Path path = Paths.get(FILE_PATH);
         try (BufferedReader reader = Files.newBufferedReader(path)) {
