@@ -31,6 +31,10 @@ public abstract class Task {
         this.isDone = statusBinaryNumber.equals("1");
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     /**
      * Returns the icon representing the status of the task.
      * An "X" represents a completed task, and a space represents an incomplete task.
