@@ -8,7 +8,22 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a parser for strings into {@code LocalDateTime} objects.
+ * <p>
+ *     Supports multiple date formats, including those with and without time components.
+ *     If the input lacks a time component, it defaults to 23:59 (for {@code Deadline} tasks).
+ * </p>
+ */
 public class DateTimeFormatParser {
+
+    /**
+     * Parses a string into a {@code LocalDateTime} object,
+     *
+     * @param dateStr the date string to be parsed
+     * @return the {@code LocalDateTime} object interpreted from the string
+     * @throws PartillayDateFormatException if the passed string does not follow list of supported formats
+     */
     public static LocalDateTime parseDateTime(String dateStr) throws PartillayException {
         for (DateFormat format : DateFormat.values()) {
             try {
@@ -20,11 +35,20 @@ public class DateTimeFormatParser {
         throw new PartillayDateFormatException("Invalid date format, bestie!");
     }
 
-    public static String getFormattedDateString(LocalDateTime dateTimeString) {
+    /**
+     * Returns string format of a {@code LocalDateTime} object.
+     *
+     * @param dateTime the {@code LocalDateTime} object to be transformed to string upon returning it
+     * @return string format of the LocalDateTime instance passed through
+     */
+    public static String getFormattedDateString(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
-        return dateTimeString.format(formatter);
+        return dateTime.format(formatter);
     }
 
+    /**
+     * Enum representing supported date and tie formats for parsing.
+     */
     public enum DateFormat {
         YYYY_MM_DD_HH_MM_1("yyyy-MM-dd HH:mm"),
         YYYY_MM_DD_HH_MM_2("yyyy/MM/dd HH:mm"),
@@ -50,6 +74,11 @@ public class DateTimeFormatParser {
             this.formatter = DateTimeFormatter.ofPattern(pattern);
         }
 
+        /**
+         *
+         * @param dateStr the date (and time) string to be parsed
+         * @return the corresponding {@code LocalDateTime} object
+         */
         public LocalDateTime parse(String dateStr) {
             return this.name().contains("HH_MM")
                     ? LocalDateTime.parse(dateStr, formatter)  // Parse as LocalDateTime if time exists

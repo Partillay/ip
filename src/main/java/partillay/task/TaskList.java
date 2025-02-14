@@ -2,13 +2,25 @@ package partillay.task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks in the system.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructs a new empty TaskList.
+     * Initializes the tasks as an empty list.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with a given list of tasks.
+     *
+     * @param tasks the list of tasks to initialize the TaskList with
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
