@@ -17,7 +17,8 @@ public class Parser {
             try {
                 taskIndexToMark = Integer.parseInt(userInput.substring(5));
             } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-                throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+                throw new PartillayInvalidCommandException(
+                        "That's not a valid command, bestie!");
             }
             return new MarkCommand(taskIndexToMark);
         } else if (userInput.startsWith("unmark")) {
@@ -25,7 +26,8 @@ public class Parser {
             try {
                 taskIndexToUnmark = Integer.parseInt(userInput.substring(7));
             } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-                throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+                throw new PartillayInvalidCommandException(
+                        "That's not a valid command, bestie!");
             }
             return new UnmarkCommand(taskIndexToUnmark);
         } else if (userInput.startsWith("delete")) {
@@ -33,69 +35,84 @@ public class Parser {
             try {
                 taskIndexToDelete = Integer.parseInt(userInput.substring(7));
             } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-                throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+                throw new PartillayInvalidCommandException(
+                        "That's not a valid command, bestie!");
             }
             return new DeleteCommand(taskIndexToDelete);
         } else if (userInput.startsWith("todo")) {
             String description = userInput.substring(4);
             if (!description.startsWith(" ") && !description.isEmpty()) {
-                throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+                throw new PartillayInvalidCommandException(
+                        "That's not a valid command, bestie!");
             }
             description = description.trim();
             if (description.isEmpty()) {
-                throw new PartillayIncompleteDescriptionException("Bestie, your task cannot be empty!");
+                throw new PartillayIncompleteDescriptionException(
+                        "Bestie, your task cannot be empty!");
             }
             return new AddCommand(new ToDo(description));
         } else if (userInput.startsWith("deadline")) {
             String input = userInput.substring(8);
             if (!input.startsWith(" ") && !input.isEmpty()) {
-                throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+                throw new PartillayInvalidCommandException(
+                        "That's not a valid command, bestie!");
             }
             input = input.trim();
             if (input.isEmpty()) {
-                throw new PartillayIncompleteDescriptionException("Bestie, your task cannot be empty!");
+                throw new PartillayIncompleteDescriptionException(
+                        "Bestie, your task cannot be empty!");
             }
             String[] parts = userInput.substring(9).split(" /by ");
             if (parts.length != 2) {
-                throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+                throw new PartillayInvalidCommandException(
+                        "That's not a valid command, bestie!");
             }
             String description = parts[0].trim();
             String by = parts[1].trim();
             if (description.isEmpty()) {
-                throw new PartillayIncompleteDescriptionException("Bestie, your task cannot be empty!");
+                throw new PartillayIncompleteDescriptionException(
+                        "Bestie, your task cannot be empty!");
             }
             if (by.isEmpty()) {
-                throw new PartillayIncompleteDescriptionException("Bestie, I need your deadline!");
+                throw new PartillayIncompleteDescriptionException(
+                        "Bestie, I need your deadline!");
             }
             return new AddCommand(new Deadline(description, by));
         } else if (userInput.startsWith("event")) {
             String input = userInput.substring(5);
             if (!input.startsWith(" ") && !input.isEmpty()) {
-                throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+                throw new PartillayInvalidCommandException(
+                        "That's not a valid command, bestie!");
             }
             input = input.trim();
             if (input.isEmpty()) {
-                throw new PartillayIncompleteDescriptionException("Bestie, your task cannot be empty!");
+                throw new PartillayIncompleteDescriptionException(
+                        "Bestie, your task cannot be empty!");
             }
             String[] parts = userInput.substring(6).split(" /from | /to ");
             if (parts.length != 3) {
-                throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+                throw new PartillayInvalidCommandException(
+                        "That's not a valid command, bestie!");
             }
             String description = parts[0].trim();
             String from = parts[1].trim();
             String to = parts[2].trim();
             if (description.isEmpty()) {
-                throw new PartillayIncompleteDescriptionException("Bestie, your task cannot be empty!");
+                throw new PartillayIncompleteDescriptionException(
+                        "Bestie, your task cannot be empty!");
             }
             if (from.isEmpty()) {
-                throw new PartillayIncompleteDescriptionException("Bestie, I need your starting time!");
+                throw new PartillayIncompleteDescriptionException(
+                        "Bestie, I need your starting time!");
             }
             if (to.isEmpty()) {
-                throw new PartillayIncompleteDescriptionException("Bestie, I need your ending time!");
+                throw new PartillayIncompleteDescriptionException(
+                        "Bestie, I need your ending time!");
             }
             return new AddCommand(new Event(description, from, to));
         } else {
-            throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+            throw new PartillayInvalidCommandException(
+                    "That's not a valid command, bestie!");
         }
     }
 }

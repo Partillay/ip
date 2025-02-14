@@ -7,7 +7,8 @@ import partillay.task.Task;
 import partillay.task.TaskList;
 
 public class Ui {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String HORIZONTAL_LINE
+            = "____________________________________________________________";
     private final Scanner scanner = new Scanner(System.in);
 
     public String readCommand() {
