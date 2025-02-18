@@ -1,9 +1,7 @@
 package partillay.command;
 
 import partillay.exception.PartillayIndexException;
-
 import partillay.task.TaskList;
-
 import partillay.ui.Ui;
 
 /**
@@ -48,7 +46,8 @@ public class MarkCommand extends Command {
      * Checks if this {@code MarkCommand} is equal to another object.
      *
      * @param other the object to be compared
-     * @return {@code true} if both {@code MarkCommand} instances have the same task (index) to be marked, otherwise {@code false}
+     * @return {@code true} if both {@code MarkCommand} instances have the same task (index) to be marked,
+     *      otherwise {@code false}
      */
     @Override
     public boolean equals(Object other) {

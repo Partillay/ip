@@ -1,8 +1,8 @@
 package partillay.task;
 
-import partillay.parser.DateTimeFormatParser;
-
 import java.time.LocalDateTime;
+
+import partillay.parser.DateTimeFormatParser;
 
 /**
  * Represents a Deadline task in the task list.
