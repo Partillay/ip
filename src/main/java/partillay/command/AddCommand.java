@@ -1,8 +1,7 @@
 package partillay.command;
 
-import partillay.task.TaskList;
 import partillay.task.Task;
-
+import partillay.task.TaskList;
 import partillay.ui.Ui;
 
 /**

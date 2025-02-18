@@ -1,12 +1,12 @@
 package partillay.parser;
 
-import partillay.exception.PartillayDateFormatException;
-import partillay.exception.PartillayException;
-
-import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import partillay.exception.PartillayDateFormatException;
+import partillay.exception.PartillayException;
 
 /**
  * Represents a parser for strings into {@code LocalDateTime} objects.
@@ -75,6 +75,7 @@ public class DateTimeFormatParser {
         }
 
         /**
+         * Returns the {@code LocalDateTime} object from a representative String
          *
          * @param dateStr the date (and time) string to be parsed
          * @return the corresponding {@code LocalDateTime} object

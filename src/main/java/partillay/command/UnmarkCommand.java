@@ -1,9 +1,7 @@
 package partillay.command;
 
 import partillay.exception.PartillayIndexException;
-
 import partillay.task.TaskList;
-
 import partillay.ui.Ui;
 
 /**

@@ -1,8 +1,8 @@
 package partillay.task;
 
-import partillay.parser.DateTimeFormatParser;
-
 import java.time.LocalDateTime;
+
+import partillay.parser.DateTimeFormatParser;
 
 /**
  * Represents an event with a description, start time, and end time.

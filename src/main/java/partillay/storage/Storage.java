@@ -1,14 +1,20 @@
 package partillay.storage;
 
-import partillay.task.*;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-
-import java.nio.file.*;
-
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+
+import partillay.exception.PartillayInvalidCommandException;
+import partillay.task.Deadline;
+import partillay.task.Event;
+import partillay.task.Task;
+import partillay.task.TaskList;
+import partillay.task.ToDo;
 
 /**
  * Represents a storage system for saving and retrieving tasks from a text file.
@@ -79,7 +85,7 @@ public class Storage {
                 path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
             for (int i = 0; i < tasksToWrite.size(); i++) {
                 writer.write(tasksToWrite.get(i).getTxtFormat());
-                if (i < tasks.size() - 1) {
+                if (i < tasksToWrite.size() - 1) {
                     writer.newLine();
                 }
             }
@@ -105,27 +111,28 @@ public class Storage {
 
                 // Parse based on the type (D, E, or T)
                 switch (type) {
-                    case "D" -> {
-                        // Deadline: D | status | description | by
-                        String status = parts[1].trim();
-                        String description = parts[2].trim();
-                        String by = parts[3].trim();
-                        tasks.add(new Deadline(description, by, status));
-                    }
-                    case "E" -> {
-                        // Event: E | status | description | from | to
-                        String status = parts[1].trim();
-                        String description = parts[2].trim();
-                        String from = parts[3].trim();
-                        String to = parts[4].trim();
-                        tasks.add(new Event(description, from, to, status));
-                    }
-                    case "T" -> {
-                        // ToDo: T | status | description
-                        String status = parts[1].trim();
-                        String description = parts[2].trim();
-                        tasks.add(new ToDo(description, status));
-                    }
+                case "D" -> {
+                    // Deadline: D | status | description | by
+                    String status = parts[1].trim();
+                    String description = parts[2].trim();
+                    String by = parts[3].trim();
+                    tasks.add(new Deadline(description, by, status));
+                }
+                case "E" -> {
+                    // Event: E | status | description | from | to
+                    String status = parts[1].trim();
+                    String description = parts[2].trim();
+                    String from = parts[3].trim();
+                    String to = parts[4].trim();
+                    tasks.add(new Event(description, from, to, status));
+                }
+                case "T" -> {
+                    // ToDo: T | status | description
+                    String status = parts[1].trim();
+                    String description = parts[2].trim();
+                    tasks.add(new ToDo(description, status));
+                }
+                default -> throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
                 }
             }
         } catch (IOException e) {
@@ -134,3 +141,4 @@ public class Storage {
 
     }
 }
+

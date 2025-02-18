@@ -1,14 +1,10 @@
 package partillay.ui;
 
-import partillay.command.*;
-
+import partillay.command.Command;
+import partillay.exception.PartillayException;
 import partillay.parser.Parser;
-
 import partillay.storage.Storage;
-
-import partillay.task.*;
-
-import partillay.exception.*;
+import partillay.task.TaskList;
 
 /**
  * Main class of the whole programme to run the chatbot.

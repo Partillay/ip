@@ -1,10 +1,8 @@
 package partillay.command;
 
 import partillay.exception.PartillayIndexException;
-
 import partillay.task.Task;
 import partillay.task.TaskList;
-
 import partillay.ui.Ui;
 
 /**
@@ -27,7 +25,7 @@ public class DeleteCommand extends Command {
      *
      * @param tasks the task list that stores current tasks
      * @param ui    the user interface for displaying output
-     * @throws PartillayIndexException if index <= 0 or index > number of tasks </> (1-based)
+     * @throws PartillayIndexException if index <= 0 or index > number of tasks (1-based indexing)
      */
     @Override
     public void execute(TaskList tasks, Ui ui) throws PartillayIndexException {
