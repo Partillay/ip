@@ -54,4 +54,11 @@ public class Partillay {
     public static void main(String[] args) {
         new Partillay().run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Partillay heard: " + input;
+    }
 }
