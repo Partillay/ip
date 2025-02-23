@@ -27,9 +27,12 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui) {
+        int numTasksBefore = tasks.size();
         String result = "Got it. I've added this task:\n";
         result += task.toString() + "\n";
         tasks.addTask(task);
+        int numTasksAfter = tasks.size();
+        assert numTasksBefore == numTasksAfter - 1 : "Number of tasks should have incremented by 1";
         result += "Now you have " + tasks.size() + " tasks in the list.";
         return ui.getLinedMessage(result);
     }
