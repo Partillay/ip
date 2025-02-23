@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     private Partillay partillay;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/partillay.png"));
+    private final Image partillayImage = new Image(this.getClass().getResourceAsStream("/images/partillay.png"));
 
     @FXML
     public void initialize() {
@@ -33,11 +33,13 @@ public class MainWindow extends AnchorPane {
     /** Injects the Partillay instance */
     public void setPartillay(Partillay partillay) {
         this.partillay = partillay;
+        String greetingMessage = partillay.ui.getWelcomeMessage();
+        dialogContainer.getChildren().add(DialogBox.getPartillayDialog(greetingMessage, partillayImage));
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Partillay's
+     * reply and then appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -45,8 +47,11 @@ public class MainWindow extends AnchorPane {
         String response = partillay.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getPartillayDialog(response, dukeImage)
+                DialogBox.getPartillayDialog(response, partillayImage)
         );
         userInput.clear();
+        if (input.trim().equals("bye")) {
+            javafx.application.Platform.exit();
+        }
     }
 }

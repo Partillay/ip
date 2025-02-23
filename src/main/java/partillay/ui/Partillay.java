@@ -10,9 +10,9 @@ import partillay.task.TaskList;
  * Main class of the whole programme to run the chatbot.
  */
 public class Partillay {
+    public final Ui ui;
     private final Storage storage;
     private final TaskList tasks;
-    private final Ui ui;
 
     /**
      * Constructs a new Partillay object to run the programme,
@@ -25,40 +25,25 @@ public class Partillay {
     }
 
     /**
-     * Runs the chatbot, and calls relevant objects like ui
-     * to give output
+     * Returns the string to be displayed in the GUI
+     * @param input input from user
+     * @return {@code String} to be displayed
      */
-    public void run() {
-        ui.showWelcomeMessage();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui);
-                isExit = c.getExitPermission();
-            } catch (PartillayException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                storage.writeTasksToFile(tasks);
-            }
+    public String run(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui);
+        } catch (PartillayException e) {
+            return ui.getErrorMessage(e.getMessage());
         }
-
     }
 
     /**
-     * The entry point of application.
-     *
-     * @param args the input arguments that are ignored upon execution
-     */
-    public static void main(String[] args) {
-        new Partillay().run();
-    }
-
-    /**
-     * Generates a response for the user's chat message.
+     * Utilises run method to return a String responding to the input
+     * @param input input from user
+     * @return {@code String} to be displayed
      */
     public String getResponse(String input) {
-        return "Partillay heard: " + input;
+        return run(input);
     }
 }
