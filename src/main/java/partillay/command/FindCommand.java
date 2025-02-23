@@ -28,17 +28,16 @@ public class FindCommand extends Command {
      * @param ui    the user interface for displaying output
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        ui.showLine();
-        ui.showMessage("Here are the matching tasks in your list:");
+    public String execute(TaskList tasks, Ui ui) {
+        String result = "Here are the matching tasks in your list:\n";
         ArrayList<Task> tasksToShow = tasks.getTasks();
         int showIndex = 1;
         for (Task task : tasksToShow) {
             if (task.getDescription().contains(toBeSearched)) {
-                ui.showMessage(showIndex + ". " + task.toString());
+                result += showIndex + ". " + task.toString() + "\n";
                 showIndex++;
             }
         }
-        ui.showLine();
+        return ui.getLinedMessage(result);
     }
 }

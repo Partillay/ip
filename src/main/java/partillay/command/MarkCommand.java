@@ -27,18 +27,17 @@ public class MarkCommand extends Command {
      * @throws PartillayIndexException if index > number of tasks or index <= 0
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws PartillayIndexException {
+    public String execute(TaskList tasks, Ui ui) throws PartillayIndexException {
         try {
             if (taskIndexToMark > tasks.size() || taskIndexToMark <= 0) {
                 throw new PartillayIndexException("No such index in your task list, bestie!");
             }
-            ui.showLine();
-            ui.showMessage("Nice! I've marked this task as done:");
+            String result = "Nice! I've marked this task as done:\n";
             tasks.markTask(taskIndexToMark - 1);
-            ui.showMessage(tasks.getTaskAsString(taskIndexToMark - 1));
-            ui.showLine();
+            result += tasks.getTaskAsString(taskIndexToMark - 1);
+            return ui.getLinedMessage(result);
         } catch (PartillayIndexException e) {
-            ui.showError(e.getMessage());
+            return ui.getErrorMessage(e.getMessage());
         }
     }
 

@@ -27,18 +27,17 @@ public class UnmarkCommand extends Command {
      * @throws PartillayIndexException if index > number of tasks or index <= 0
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws PartillayIndexException {
+    public String execute(TaskList tasks, Ui ui) throws PartillayIndexException {
         try {
             if (taskIndexToUnmark > tasks.size()) {
                 throw new PartillayIndexException("No such index in your task list, bestie!");
             }
-            ui.showLine();
-            ui.showMessage("OK, I've marked this task as not done yet:");
+            String result = "OK, I've marked this task as not done yet:\n";
             tasks.unmarkTask(taskIndexToUnmark - 1);
-            ui.showMessage(tasks.getTaskAsString(taskIndexToUnmark - 1));
-            ui.showLine();
+            result += tasks.getTaskAsString(taskIndexToUnmark - 1) + "\n";
+            return ui.getLinedMessage(result);
         } catch (PartillayIndexException e) {
-            ui.showError(e.getMessage());
+            return ui.getErrorMessage(e.getMessage());
         }
     }
 }
