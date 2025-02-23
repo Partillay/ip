@@ -26,13 +26,12 @@ public class AddCommand extends Command {
      * @param ui    the user interface for displaying output
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        ui.showLine();
+    public String execute(TaskList tasks, Ui ui) {
+        String result = "Got it. I've added this task:\n";
+        result += task.toString() + "\n";
         tasks.addTask(task);
-        ui.showMessage("Got it. I've added this task:");
-        ui.showMessage(task.toString());
-        ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
-        ui.showLine();
+        result += "Now you have " + tasks.size() + " tasks in the list.";
+        return ui.getLinedMessage(result);
     }
 
     /**

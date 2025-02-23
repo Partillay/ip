@@ -29,7 +29,7 @@ public abstract class Command {
      * @param tasks the task list that stores current tasks
      * @param ui    the user interface for displaying output
      */
-    public abstract void execute(TaskList tasks, Ui ui);
+    public abstract String execute(TaskList tasks, Ui ui);
 
     /**
      * Checks whether the application should exit after this command executes.

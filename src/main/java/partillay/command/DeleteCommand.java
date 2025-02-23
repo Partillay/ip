@@ -28,21 +28,19 @@ public class DeleteCommand extends Command {
      * @throws PartillayIndexException if index <= 0 or index > number of tasks (1-based indexing)
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) throws PartillayIndexException {
+    public String execute(TaskList tasks, Ui ui) throws PartillayIndexException {
         try {
             if (taskIndexToDelete > tasks.size() | taskIndexToDelete <= 0) {
                 this.isExit = true;
                 throw new PartillayIndexException("No such index in your task list, bestie!");
             }
-            ui.showLine();
+            String result = "Noted. I've removed this task:\n";
             Task removedTask = tasks.deleteTask(taskIndexToDelete - 1);
-            ui.showMessage("Noted. I've removed this task:");
-            ui.showMessage(removedTask.toString());
-            ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
-            ui.showLine();
+            result += removedTask.toString() + "\n";
+            result += "Now you have " + tasks.size() + " tasks in the list.";
+            return ui.getLinedMessage(result);
         } catch (PartillayIndexException e) {
-            ui.showError(e.getMessage());
+            return ui.getErrorMessage(e.getMessage());
         }
-
     }
 }

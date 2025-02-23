@@ -28,8 +28,8 @@ public class ByeCommand extends Command {
      * @param ui    the user interface for displaying output
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        ui.showGoodbyeMessage();
+    public String execute(TaskList tasks, Ui ui) {
+        return ui.getGoodbyeMessage();
     }
 
     /**

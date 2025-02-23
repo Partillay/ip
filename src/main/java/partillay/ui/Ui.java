@@ -10,7 +10,7 @@ import partillay.task.TaskList;
  * Represents the user interface (UI) that handles input and output interactions with the user.
  */
 public class Ui {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String HORIZONTAL_LINE = "________________________________________________________";
     private final Scanner scanner = new Scanner(System.in);
 
     /**
@@ -25,20 +25,17 @@ public class Ui {
     /**
      * Displays a welcome message to the user when the program starts.
      */
-    public void showWelcomeMessage() {
-        showLine();
-        System.out.println("Hello! I'm Partillay, your ABSOLUTELY greatest bestie.");
-        System.out.println("Anything I CAN HELP?");
-        showLine();
+    public String getWelcomeMessage() {
+        String result = "Hello! I'm Partillay, your ABSOLUTELY greatest bestie.\n";
+        result += "Anything I CAN HELP?";
+        return getLinedMessage(result);
     }
 
     /**
      * Displays a goodbye message to the user when the program ends.
      */
-    public void showGoodbyeMessage() {
-        showLine();
-        System.out.println("Bye. See you later! Slay!");
-        showLine();
+    public String getGoodbyeMessage() {
+        return getLinedMessage("Bye. See you later! Slay!");
     }
 
     /**
@@ -46,17 +43,15 @@ public class Ui {
      *
      * @param message the error message to be displayed
      */
-    public void showError(String message) {
-        showLine();
-        System.out.println(message);
-        showLine();
+    public String getErrorMessage(String message) {
+        return getLinedMessage(message);
     }
 
     /**
      * Prints a horizontal line to the console for separation between outputs.
      */
-    public void showLine() {
-        System.out.println(HORIZONTAL_LINE);
+    public String getLine() {
+        return HORIZONTAL_LINE;
     }
 
     /**
@@ -64,14 +59,13 @@ public class Ui {
      *
      * @param tasks the TaskList containing the tasks to be displayed
      */
-    public void showTaskList(TaskList tasks) {
-        showLine();
-        System.out.println("Here are the tasks in your list:");
+    public String getTaskListTasks(TaskList tasks) {
+        StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
         ArrayList<Task> tasksToShow = tasks.getTasks();
         for (int i = 0; i < tasksToShow.size(); i++) {
-            showMessage((i + 1) + ". " + tasksToShow.get(i));
+            result.append((i + 1)).append(". ").append(tasksToShow.get(i)).append("\n");
         }
-        showLine();
+        return getLinedMessage(result.toString());
     }
 
     /**
@@ -79,7 +73,7 @@ public class Ui {
      *
      * @param message the message to be displayed
      */
-    public void showMessage(String message) {
-        System.out.println(message);
+    public String getLinedMessage(String message) {
+        return getLine() + "\n" + message + "\n" + getLine() + "\n";
     }
 }

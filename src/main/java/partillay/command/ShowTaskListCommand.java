@@ -15,7 +15,7 @@ public class ShowTaskListCommand extends Command {
      * @param ui    the user interface for displaying output
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        ui.showTaskList(tasks);
+    public String execute(TaskList tasks, Ui ui) {
+        return ui.getTaskListTasks(tasks);
     }
 }
