@@ -121,7 +121,7 @@ public class Parser {
         try {
             return Integer.parseInt(input.substring(prefixLength).trim());
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+            throw new PartillayInvalidCommandException("That's not a valid integer for me to interpret, bestie!");
         }
     }
 
@@ -154,14 +154,15 @@ public class Parser {
         if (input.equals("deadline")) {
             throw new PartillayIncompleteDescriptionException("Bestie, your deadline task cannot be empty!");
         }
-        String[] parts = input.substring(9).split(" /by ");
+        String[] parts = input.substring(8).split(" /by ");
         if (parts.length != 2) {
-            throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+            throw new PartillayInvalidCommandException("Bestie, deadline task requires two components, "
+                    + "description and deadline!");
         }
         String description = parts[0].trim();
         String by = parts[1].trim();
         if (description.isEmpty()) {
-            throw new PartillayIncompleteDescriptionException("Bestie, your task cannot be empty!");
+            throw new PartillayIncompleteDescriptionException("Bestie, your task description cannot be empty!");
         }
         if (by.isEmpty()) {
             throw new PartillayIncompleteDescriptionException("Bestie, I need your deadline!");
@@ -182,7 +183,9 @@ public class Parser {
         }
         String[] parts = input.substring(6).split(" /from | /to ");
         if (parts.length != 3) {
-            throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
+            throw new PartillayInvalidCommandException(
+                    "Make sure you have the event description, when the event starts and when does it end, bestie!\n"
+                    + "You're missing at least one of them!");
         }
         String description = parts[0].trim();
         String from = parts[1].trim();
@@ -195,6 +198,9 @@ public class Parser {
         }
         if (to.isEmpty()) {
             throw new PartillayIncompleteDescriptionException("Bestie, I need your ending time!");
+        }
+        if (DateTimeFormatParser.isEarlierThan(to, from)) {
+            throw new PartillayInvalidCommandException("The event can't end earlier than it starts!");
         }
         return new Event(description, from, to);
     }
