@@ -69,15 +69,33 @@ public class Parser {
      * @return the normalized input string with shorthand commands replaced by their full versions
      */
     private static String normalizeInput(String input) {
-        input = input.replaceAll("^b\\s*", "bye");
-        input = input.replaceAll("^l\\s*", "list");
-        input = input.replaceAll("^f\\s", "find ");
-        input = input.replaceAll("^m\\s", "mark ");
-        input = input.replaceAll("^u\\s", "unmark ");
-        input = input.replaceAll("^d\\s", "delete ");
-        input = input.replaceAll("^t\\s", "todo ");
-        input = input.replaceAll("^dl\\s", "deadline ");
-        input = input.replaceAll("^e\\s", "event ");
+        if (input.equals("b")) {
+            return "bye";
+        }
+        if (input.equals("l")) {
+            return "list";
+        }
+        if (input.startsWith("f ")) {
+            return "find" + input.substring(1);
+        }
+        if (input.startsWith("m ")) {
+            return "mark" + input.substring(1);
+        }
+        if (input.startsWith("u ")) {
+            return "unmark" + input.substring(1);
+        }
+        if (input.startsWith("d ")) {
+            return "delete" + input.substring(1);
+        }
+        if (input.startsWith("t ")) {
+            return "todo" + input.substring(1);
+        }
+        if (input.startsWith("dl ")) {
+            return "deadline" + input.substring(2);
+        }
+        if (input.startsWith("e ")) {
+            return "event" + input.substring(1);
+        }
         return input;
     }
 
