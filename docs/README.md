@@ -10,6 +10,27 @@ Compatible with Java 17 and above, this is a simple GUI application that simulat
 3. Copy the file to the folder you want to use as the_home folder_ for Partillay.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar Partillay.jar` command to run the application. Double-click the jar file will also work.
 
+## Accepted `DateTimeFormat`'s for Partillay:
+```
+YYYY_MM_DD_HH_MM_1("yyyy-MM-dd HH:mm"),
+YYYY_MM_DD_HH_MM_2("yyyy/MM/dd HH:mm"),
+YYYY_MM_DD_HH_MM_3("yyyy-MM-dd HHmm"),
+YYYY_MM_DD_HH_MM_4("yyyy/MM/dd HHmm"),
+
+YYYY_MM_DD_1("yyyy-MM-dd"),
+YYYY_MM_DD_2("yyyy/MM/dd"),
+
+D_MM_YYYY("d/MM/yyyy"),
+DD_MM_YYYY("dd/MM/yyyy"),
+
+DD_MM_YYYY_HH_MM_1("dd-MM-yyyy HH:mm"),
+DD_MM_YYYY_HH_MM_2("dd/MM/yyyy HH:mm"),
+DD_MM_YYYY_HH_MM_3("dd-MM-yyyy HHmm"),
+DD_MM_YYYY_HH_MM_4("dd/MM/yyyy HHmm"),
+
+YYYY_MM_DD_T_HH_MM("yyyy-MM-dd'T'HH:mm").
+```
+
 ## Adding todos: `todo` and `t`
 Adds todos, no time is needed.
 
