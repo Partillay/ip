@@ -1,6 +1,8 @@
 package partillay.command;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import partillay.task.Task;
 import partillay.task.TaskList;
@@ -32,9 +34,12 @@ public class FindCommand extends Command {
         String result = "Here are the matching tasks in your list:\n";
         ArrayList<Task> tasksToShow = tasks.getTasks();
         int showIndex = 1;
+        String regex = "\\b" + Pattern.quote(toBeSearched) + "\\b";
+        Pattern pattern = Pattern.compile(regex);
         for (Task task : tasksToShow) {
-            if (task.getDescription().contains(toBeSearched)) {
-                result += showIndex + ". " + task.toString() + "\n";
+            Matcher matcher = pattern.matcher(task.getDescription());
+            if (matcher.find()) {
+                result += showIndex + ". " + task + "\n";
                 showIndex++;
             }
         }
