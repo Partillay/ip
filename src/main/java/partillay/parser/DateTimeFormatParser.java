@@ -32,7 +32,7 @@ public class DateTimeFormatParser {
                 // Ignore and try next format
             }
         }
-        throw new PartillayDateFormatException("Invalid date format, bestie!");
+        throw new PartillayDateFormatException("Invalid date time format, bestie!");
     }
 
     /**
@@ -44,6 +44,10 @@ public class DateTimeFormatParser {
     public static String getFormattedDateString(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
         return dateTime.format(formatter);
+    }
+
+    public static boolean isEarlierThan(String dateStr1, String dateStr2) {
+        return parseDateTime(dateStr2).isAfter(parseDateTime(dateStr1));
     }
 
     /**
