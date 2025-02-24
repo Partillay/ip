@@ -32,7 +32,9 @@ public class Partillay {
     public String run(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(tasks, ui);
+            String result = c.execute(tasks, ui);
+            storage.writeTasksToFile(tasks);
+            return result;
         } catch (PartillayException e) {
             return ui.getErrorMessage(e.getMessage());
         }
