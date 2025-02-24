@@ -29,7 +29,7 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui) throws PartillayIndexException {
         try {
-            if (taskIndexToUnmark > tasks.size()) {
+            if (taskIndexToUnmark > tasks.size() || taskIndexToUnmark <= 0) {
                 throw new PartillayIndexException("No such index in your task list, bestie!");
             }
             String result = "OK, I've marked this task as not done yet:\n";
