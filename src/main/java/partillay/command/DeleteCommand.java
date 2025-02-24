@@ -34,10 +34,13 @@ public class DeleteCommand extends Command {
                 this.isExit = true;
                 throw new PartillayIndexException("No such index in your task list, bestie!");
             }
+            int numTasksBefore = tasks.size();
             String result = "Noted. I've removed this task:\n";
             Task removedTask = tasks.deleteTask(taskIndexToDelete - 1);
             result += removedTask.toString() + "\n";
             result += "Now you have " + tasks.size() + " tasks in the list.";
+            int numTasksAfter = tasks.size();
+            assert numTasksBefore == numTasksAfter + 1 : "Number of tasks should have decremented by 1";
             return ui.getLinedMessage(result);
         } catch (PartillayIndexException e) {
             return ui.getErrorMessage(e.getMessage());
