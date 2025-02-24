@@ -28,6 +28,9 @@ public class Event extends Task {
         this.to = DateTimeFormatParser.parseDateTime(to);
         this.fromString = from;
         this.toString = to;
+        if (this.from.getHour() == 23 && this.from.getMinute() == 59) {
+            this.from = this.from.withHour(0).withMinute(0);
+        }
     }
 
     /**
@@ -46,6 +49,9 @@ public class Event extends Task {
         this.to = DateTimeFormatParser.parseDateTime(to);
         this.fromString = from;
         this.toString = to;
+        if (this.from.getHour() == 23 && this.from.getMinute() == 59) {
+            this.from = this.from.withHour(0).withMinute(0);
+        }
     }
 
     @Override
