@@ -50,7 +50,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getPartillayDialog(response, partillayImage)
         );
         userInput.clear();
-        if (input.trim().equals("bye")) {
+        if (input.trim().equals("bye") || input.trim().equals("b")) {
             javafx.application.Platform.exit();
         }
     }

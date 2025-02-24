@@ -29,6 +29,7 @@ public class Parser {
      */
     public static Command parse(String userInput) throws PartillayException {
         String trimmedInput = userInput.trim();
+        trimmedInput = normalizeInput(trimmedInput);
         switch (getCommandWord(trimmedInput)) {
         case "bye":
             if (!trimmedInput.equals("bye")) {
@@ -57,6 +58,27 @@ public class Parser {
         default:
             throw new PartillayInvalidCommandException("That's not a valid command, bestie!");
         }
+    }
+
+    /**
+     * Normalizes the user input by replacing shorthand commands with their full versions.
+     * This method ensures that input commands like 'b' or 'f' are correctly expanded
+     * to 'bye' or 'find', respectively. It also handles the removal of extra spaces.
+     *
+     * @param input the raw user input string
+     * @return the normalized input string with shorthand commands replaced by their full versions
+     */
+    private static String normalizeInput(String input) {
+        input = input.replaceAll("^b\\s*", "bye");
+        input = input.replaceAll("^l\\s*", "list");
+        input = input.replaceAll("^f\\s", "find ");
+        input = input.replaceAll("^m\\s", "mark ");
+        input = input.replaceAll("^u\\s", "unmark ");
+        input = input.replaceAll("^d\\s", "delete ");
+        input = input.replaceAll("^t\\s", "todo ");
+        input = input.replaceAll("^dl\\s", "deadline ");
+        input = input.replaceAll("^e\\s", "event ");
+        return input;
     }
 
     /**
@@ -89,7 +111,7 @@ public class Parser {
      * Parses and validates a task description from user input.
      *
      * @param input the user input string
-     * @param prefixLength the length of the command word plus space (e.g., "todo " is 4)
+     * @param prefixLength the length of the command word plus space (e.g. "todo " is 4)
      * @param fieldName the part of command (i.e. "task" and "find" needs description) for error messages
      * @return the task description as a string
      * @throws PartillayIncompleteDescriptionException if the description is missing
